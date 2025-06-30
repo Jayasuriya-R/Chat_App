@@ -50,7 +50,10 @@ const ChatMain = () => {
       </div>
 
       {/* Chat Messages Section */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-2">
+      <div className="flex-1 overflow-y-auto p-4 space-y-2"style={{
+    msOverflowStyle: 'none', /* IE and Edge */
+    scrollbarWidth: 'none',  /* Firefox */
+  }}>
         {/* Map messages here */}
         {/* <ChatBubble /> */}
         {/* Incoming Message (Left) */}
@@ -60,14 +63,22 @@ const ChatMain = () => {
             <div className="bg-gray-800 text-white text-left p-2 rounded-lg w-fit">
               <p>Hello! How are you?</p>
             </div>
-            <span className="text-xs text-gray-400">10:30 AM</span>
+            {/* Place time span just below the message and aligned to the start */}
+            <div className="flex items-start mt-1">
+              <span className="text-xs text-gray-400 block">10:30 AM</span>
+            </div>
           </div>
         </div>
 
         {/* Outgoing Message (Right) */}
-        <div className="flex justify-end mb-2">
-          <div className="bg-blue-500 text-white p-2 rounded-lg w-fit">
-            <p>I’m good, thanks! You?</p>
+        <div className="flex justify-end gap-2 max-w-[70%] ml-auto mb-2">
+          <div>
+            <div className="bg-blue-500 text-white text-left p-2 rounded-lg w-fit">
+              <p>Hello! How are you?</p>
+            </div>
+            <div className="mt-1 flex items-start">
+              <span className="text-xs  text-gray-400 block">10:30 AM</span>
+            </div>
           </div>
         </div>
       </div>

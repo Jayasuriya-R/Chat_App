@@ -37,7 +37,7 @@ const ChatList = () => {
           />
         </div>
       </div>
-      <div className="mt-3 pr-3 h-[400px] overflow-y-auto" style={{
+      <div className="mt-3 pr-3 h-[450px] overflow-y-auto" style={{
     msOverflowStyle: 'none', /* IE and Edge */
     scrollbarWidth: 'none',  /* Firefox */
   }}>
