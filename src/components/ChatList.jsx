@@ -7,7 +7,7 @@ import Chat from "./Chat";
 const ChatList = () => {
   const [swapIcon, setSwapIcon] = useState(false);
   return (
-    <div className="py-4 w-full">
+    <div className="py-4 px-2 w-full">
       <div className="flex items-center w-full gap-3 pr-3">
         {/* Search Input with Icon */}
         <div className="relative flex-1">
@@ -33,7 +33,7 @@ const ChatList = () => {
           <img
             src={swapIcon ? minus : plus}
             alt={swapIcon ? "Delete Chat Icon" : "Add Chat Icon"}
-            className="w-5 h-5 text-gray-400"
+            className="w-4 h-4 text-gray-400"
           />
         </div>
       </div>

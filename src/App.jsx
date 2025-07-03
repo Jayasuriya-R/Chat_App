@@ -1,18 +1,23 @@
-import { useState } from 'react'
-import './App.css'
-import bgImage from './assets/bg.jpg'
-import MainContainer from './components/MainContainer'
+import { useState } from "react";
+import "./App.css";
+import bgImage from "./assets/bg.jpg";
+import MainContainer from "./components/MainContainer";
+import Login from "./components/Login";
 
 function App() {
-  
-
+  let user = true;
   return (
     <>
-     <div className='flex justify-center items-center h-screen' style={{ backgroundImage: `url(${bgImage})` }}>
-      <MainContainer />
-     </div>
+      <div className="w-screen h-screen flex items-center justify-center bg-[#111928]">
+        <div className="w-11/12 h-11/12">
+         {
+          user ?  <MainContainer /> : <Login />
+         }
+          
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

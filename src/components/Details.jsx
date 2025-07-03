@@ -16,8 +16,8 @@ const Details = () => {
     setOpenSetting((prev) => (prev === id ? null : id));
   };
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center gap-1">
+    <div className="pb-2 px-1">
+      <div className="flex flex-col items-center justify-center ">
         <img
           src={Avatar}
           alt="User Avatar"
@@ -31,7 +31,7 @@ const Details = () => {
         {settings.map((setting) => (
           <div
             key={setting.id}
-            className="flex justify-between items-center text-left px-3 pb-2 cursor-pointer"
+            className="flex justify-between items-center text-left px-3 pb-2 mb-1 cursor-pointer"
             onClick={() => toggle(setting.id)}
           >
             <p>{setting.label}</p>
@@ -45,7 +45,7 @@ const Details = () => {
         <div>
           {[1, 2, 3, 4].map(() => {
             return (
-              <div className="flex justify-between items-center px-3 pb-2 cursor-pointer">
+              <div className="flex justify-between items-center px-3 pb-2 mb-1 cursor-pointer">
                 <img
                   src="https://picsum.photos/200/300"
                   alt="Shared"
@@ -60,7 +60,7 @@ const Details = () => {
             );
           })}
         </div>
-        <div className="flex justify-between items-center px-3 pb-2 cursor-pointer">
+        <div className="flex justify-between items-center px-3 pb-2 mt-1 cursor-pointer">
           <p>Shared Files</p>
           <img
               src={ upArrow}
@@ -68,7 +68,8 @@ const Details = () => {
               className="w-[30px] h-[30px] text-right bg-gray-800 p-[10px] rounded-full"
             />
         </div>
-        <button className="bg-red-400 w-full p-2 rounded-xs cursor-pointer hover:bg-red-500"> Block User</button>
+        <button className="bg-red-400 w-full px-2 py-1 text-xs rounded-xs cursor-pointer hover:bg-red-500"> Block User</button>
+        <button className="bg-blue-400 text-white w-full text-xs px-2 py-1 rounded-xs cursor-pointer hover:bg-blue-500"> Log Out</button>
       </div>
     </div>
   );
