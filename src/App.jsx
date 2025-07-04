@@ -5,7 +5,7 @@ import MainContainer from "./components/MainContainer";
 import Login from "./components/Login";
 
 function App() {
-  let user = true;
+  let user = false;
   return (
     <>
       <div className="w-screen h-screen flex items-center justify-center bg-[#111928]">
