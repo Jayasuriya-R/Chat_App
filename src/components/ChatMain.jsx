@@ -8,11 +8,14 @@ import mic from "../assets/mic.png";
 import img from "../assets/img.png";
 import emoji from "../assets/emoji.png";
 import EmojiPicker from "emoji-picker-react";
+import AddUser from "./AddUser";
+import { useSelector } from "react-redux";
 
 const ChatMain = () => {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const endRef = useRef(null);
   const [text, setText] = useState("");
+  const showAddUser =  useSelector((store)=> store.addUserToogle.addUserToogle)// Assuming this is a prop or state that determines if the AddUser component should be show
 
   useEffect(() => {
     // Scroll to the bottom when the component mounts or updates
@@ -23,7 +26,9 @@ const ChatMain = () => {
   };
 
   return (
-    <div className="flex flex-col h-full pr-2"> {/* ✅ Changed from h-screen to h-full */}
+    <>
+  
+    <div className={`flex flex-col h-full pr-2 ${showAddUser ? "opacity-30":""}`}> {/* ✅ Changed from h-screen to h-full */}
       {/* Chat Header */}
       <div className="p-3 border-b border-white/15">
         <div className="flex items-center justify-between">
@@ -130,6 +135,12 @@ const ChatMain = () => {
         </div>
       </div>
     </div>
+    {showAddUser &&
+    <div className=" absolute bottom-0 left-0 top-0 right-0 w-fit h-fit m-auto text-white rounded-lg shadow-lg">
+       <AddUser />
+    </div>
+    }
+    </>
   );
 };
 

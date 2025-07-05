@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [signUp, setSignUp] = React.useState(false);
@@ -19,7 +20,11 @@ const Login = () => {
     >
       <div className="flex flex-col space-y-8 h-full items-center justify-center">
         <h1 className="text-3xl font-bold">{!signUp ? "Log In" : "Sign Up"}</h1>
-        <form className=" " onSubmit={(e) => e.preventDefault()}>
+        <form className=" " onSubmit={(e) =>
+          { e.preventDefault()
+            toast.success(
+              !signUp ? "Logged In" : "Signed Up")
+           }}>
           { signUp &&
           <div className="flex items-center justify-end">
             <img src={avatar.url || "https://picsum.photos/200/300"} className="w-5 h-5 rounded-full mr-3" />

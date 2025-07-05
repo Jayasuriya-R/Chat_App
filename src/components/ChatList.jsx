@@ -3,9 +3,12 @@ import search from "../assets/search.png";
 import plus from "../assets/plus.png";
 import minus from "../assets/minus.png";
 import Chat from "./Chat";
+import { useDispatch, useSelector } from "react-redux";
+import { setAddUserToogle } from "../utils/addUserToogleSlice";
 
 const ChatList = () => {
-  const [swapIcon, setSwapIcon] = useState(false);
+  const diptach = useDispatch();
+  const swapIcon = useSelector((store) => store.addUserToogle.addUserToogle);
   return (
     <div className="py-4 px-2 w-full">
       <div className="flex items-center w-full gap-3 pr-3">
@@ -27,7 +30,8 @@ const ChatList = () => {
 
         {/* Toggle Button */}
         <div
-          onClick={() => setSwapIcon(!swapIcon)}
+        
+          onClick={() =>{  diptach(setAddUserToogle())}}
           className="bg-gray-800 w-12 h-10 rounded-lg flex justify-center items-center cursor-pointer"
         >
           <img
@@ -40,8 +44,7 @@ const ChatList = () => {
       <div className="mt-3 pr-3 h-[450px] overflow-y-auto" style={{
     msOverflowStyle: 'none', /* IE and Edge */
     scrollbarWidth: 'none',  /* Firefox */
-  }}>
-        
+  }}> 
       {[1, 2, 3, 4, 5,6,7,8,9].map(() => (
         <Chat />
       ))}
