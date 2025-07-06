@@ -15,7 +15,7 @@ const ChatMain = () => {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const endRef = useRef(null);
   const [text, setText] = useState("");
-  const showAddUser =  useSelector((store)=> store.addUserToogle.addUserToogle)// Assuming this is a prop or state that determines if the AddUser component should be show
+  const showAddUser =  useSelector((store)=> store.addUserToogle.addUserToogle)
 
   useEffect(() => {
     // Scroll to the bottom when the component mounts or updates
@@ -27,7 +27,6 @@ const ChatMain = () => {
 
   return (
     <>
-  
     <div className={`flex flex-col h-full pr-2 ${showAddUser ? "opacity-30":""}`}> {/* ✅ Changed from h-screen to h-full */}
       {/* Chat Header */}
       <div className="p-3 border-b border-white/15">
