@@ -56,7 +56,7 @@ const Login = () => {
       });
 
       toast.success("Signed Up Successfully");
-      fetchUserDetails(res.user.uid,dispatch);
+      await fetchUserDetails(res.user.uid,dispatch);
       // dispatch(
       //   adduser({
       //     userId : res.user.uid,
@@ -82,7 +82,7 @@ const Login = () => {
       setLoading(true);
 
       const res = await signInWithEmailAndPassword(auth, email, password);
-      fetchUserDetails(res.user.uid,dispatch);
+      await fetchUserDetails(res.user.uid,dispatch);
       toast.success("Logged In Successfully");
 
       // dispatch(
@@ -110,10 +110,10 @@ const Login = () => {
           <OrbitProgress color="#7d97d6" size="medium" />
         </div>
       ) : (
-        <div className="flex flex-col space-y-8 h-full items-center justify-center">
+        <div className="flex flex-col space-y-2 h-full items-center justify-center">
           <h1 className="text-3xl font-bold">{!signUp ? "Log In" : "Sign Up"}</h1>
           <form
-            className=""
+            className="w-5/12"
             onSubmit={(e) => {
               e.preventDefault();
               signUp ? handleSignin() : handleLogin();
@@ -121,8 +121,8 @@ const Login = () => {
           >
             {/* Avatar Upload */}
             <div
-              className={`flex items-center justify-end mb-3 transition-all duration-300 ${
-                signUp ? "opacity-100 visible" : "opacity-0 invisible h-0"
+              className={`flex items-center justify-end mb-1 transition-all duration-300 ${
+                signUp ? "opacity-100 block" : "opacity-0 hidden"
               }`}
             >
               <img
@@ -172,7 +172,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full p-2 mb-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+              className="w-full p-2 mb-4 bg-blue-600 font-medium text-white rounded hover:bg-blue-700 transition-colors"
             >
               {!signUp ? "Log In" : "Sign Up"}
             </button>

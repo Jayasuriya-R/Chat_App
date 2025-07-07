@@ -1,14 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import search from "../assets/search.png";
 import plus from "../assets/plus.png";
 import minus from "../assets/minus.png";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddUserToogle } from "../utils/addUserToogleSlice";
+import fetchChatDetails from "../Hooks/fetchChatdetails";
 
 const ChatList = () => {
   const diptach = useDispatch();
   const swapIcon = useSelector((store) => store.addUserToogle.addUserToogle);
+  const user = useSelector((store) => store.CurrentUser.user);
+  const [chats, setChats] = useState([]);
+
+  // ✅ This ensures a stable array length
+  
+useEffect(() => {
+  if (!user || !user.uid) {
+    console.warn("❗ Skipping fetchChatDetails — user or user.uid is undefined");
+    return;
+  }
+
+  const unsubscribe = fetchChatDetails(user.uid, (chatList) => {
+    setChats(chatList);
+  });
+
+  return () => unsubscribe();
+}, [user?.uid]);
+
+
+
+
   return (
     <div className="py-4 px-2 w-full">
       <div className="flex items-center w-full gap-3 pr-3">
@@ -45,8 +67,8 @@ const ChatList = () => {
     msOverflowStyle: 'none', /* IE and Edge */
     scrollbarWidth: 'none',  /* Firefox */
   }}> 
-      {[1, 2, 3, 4, 5,6,7,8,9].map(() => (
-        <Chat />
+      {[1, 2, 3, 4, 5,6,7,8,9].map((_,index) => (
+        <Chat key={index} />
       ))}
       </div>
     </div>

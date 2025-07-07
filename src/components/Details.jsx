@@ -71,8 +71,10 @@ const Details = () => {
               className="w-[30px] h-[30px] text-right bg-gray-800 p-[10px] rounded-full"
             />
         </div>
-        <button className="bg-red-400 w-full px-2 py-1 text-xs rounded-xs cursor-pointer hover:bg-red-500"> Block User</button>
-        <button className="bg-blue-400 text-white w-full text-xs px-2 py-1 rounded-xs cursor-pointer hover:bg-blue-500" onClick={()=>dispatch(removeuser())}> Log Out</button>
+        <div className="flex flex-col px-2  gap-2 mt-1">
+        <button className="bg-red-400 w-full px-2 py-[4px] text-xs rounded-xs cursor-pointer hover:bg-red-500"> Block User</button>
+        <button className="bg-blue-400 text-white w-full text-xs px-2 py-[4px] rounded-xs cursor-pointer hover:bg-blue-500" onClick={()=>dispatch(removeuser())}> Log Out</button>
+        </div>
       </div>
     </div>
   );
