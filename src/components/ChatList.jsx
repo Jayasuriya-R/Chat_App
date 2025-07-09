@@ -6,6 +6,9 @@ import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddUserToogle } from "../utils/addUserToogleSlice";
 import fetchChatDetails from "../Hooks/fetchChatdetails";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../Firebase/Firebase"; // Adjust the import path as necessary
+import { getDoc } from "firebase/firestore"; // Import getDoc to fetch user details
 
 const ChatList = () => {
   const diptach = useDispatch();
@@ -16,19 +19,30 @@ const ChatList = () => {
   // ✅ This ensures a stable array length
   
 useEffect(() => {
-  if (!user || !user.uid) {
-    console.warn("❗ Skipping fetchChatDetails — user or user.uid is undefined");
-    return;
-  }
+  if (!user[0].uid) return; // Guard clause
 
-  const unsubscribe = fetchChatDetails(user.uid, (chatList) => {
-    setChats(chatList);
-  });
+  const unsub = onSnapshot(doc(db, "userChats", user[0].uid), async (res) => {
+  
+   const items = res.data()?.chats || [];
+   
+       const promises = items.map(async (item) => {
+         const userDocRef = doc(db, "users", item.receiverId); // or item.users.uid if that's your field
+         const userDocSnap = await getDoc(userDocRef);
+         const user = userDocSnap.exists() ? userDocSnap.data() : null;
+         return { ...item, user };
+       });
+   
+       const chatData = await Promise.all(promises);
+       const sorted = chatData.sort((a, b) => b.updatedAt - a.updatedAt);
+       setChats(sorted); // send to state
+    console.log("Chats updated:", items);
+  
+});
 
-  return () => unsubscribe();
-}, [user?.uid]);
+  return () => unsub();
+}, [user[0]?.uid]);
 
-
+// console.log("Chats:", user);
 
 
   return (
@@ -67,8 +81,10 @@ useEffect(() => {
     msOverflowStyle: 'none', /* IE and Edge */
     scrollbarWidth: 'none',  /* Firefox */
   }}> 
-      {[1, 2, 3, 4, 5,6,7,8,9].map((_,index) => (
-        <Chat key={index} />
+      {console.log("Chats:", chats)}
+      {
+      chats?.map((x,index) => (
+        <Chat key={index} name={x.user.username} />
       ))}
       </div>
     </div>

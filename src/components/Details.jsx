@@ -46,9 +46,9 @@ const Details = () => {
           </div>
         ))}
         <div>
-          {[1, 2, 3, 4].map(() => {
+          {[1, 2, 3, 4].map((_,index) => {
             return (
-              <div className="flex justify-between items-center px-3 pb-2 mb-1 cursor-pointer">
+              <div key={index} className="flex justify-between items-center px-3 pb-2 mb-1 cursor-pointer">
                 <img
                   src="https://picsum.photos/200/300"
                   alt="Shared"
