@@ -10,21 +10,36 @@ import emoji from "../assets/emoji.png";
 import EmojiPicker from "emoji-picker-react";
 import AddUser from "./AddUser";
 import { useSelector } from "react-redux";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../Firebase/Firebase";
 
 const ChatMain = () => {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
+  const [msg,setMsg] = useState("");
   const endRef = useRef(null);
   const [text, setText] = useState("");
   const showAddUser =  useSelector((store)=> store.addUserToogle.addUserToogle)
 
   useEffect(() => {
     // Scroll to the bottom when the component mounts or updates
-    scrollToBottom();
-  }, []);
-  const scrollToBottom = () => {
+    const scrollToBottom = () => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+    scrollToBottom();
+  }, []);
+  useEffect(()=>{
+      const unSub = onSnapshot(doc(db,"chats","qGgXGcvZFwB7GIByX9dJ"),(res)=>{
+       setMsg(res.data());
+      })
 
+      return ()=> unSub();
+      
+  },[])
+  console.log(msg);
+  
+
+  
+  
   return (
     <>
     <div className={`flex flex-col h-full pr-2 ${showAddUser ? "opacity-30":""}`}> {/* ✅ Changed from h-screen to h-full */}

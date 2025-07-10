@@ -3,7 +3,7 @@ import avatar from '../assets/avatar.png'
 
 const Chat = ({name}) => {
   return (
-    <div className=''>
+    <div className='cursor-pointer hover:bg-gray-800/50 rounded-lg transition-all duration-200'>
       <div className='flex items-center px-3 py-4'>
         <img src={avatar} alt="Avatar" className="w-10 h-10 rounded-full mr-2" />
         <div>
