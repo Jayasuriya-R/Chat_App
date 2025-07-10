@@ -100,7 +100,7 @@ const ChatList = () => {
             <Chat
               key={index}
               name={x.user.username}
-              onClick={() => dispatch(addSelectedUser(x.chatId))}
+              id = {x}
             />
           ))
         )}

@@ -4,7 +4,7 @@ const userSlice = createSlice({
   name: "CurrentUser",
   initialState: {
     user: [],
-    selectedUser: [], // Added selectedUser to track the currently selected user  
+    selectedUser: null, // Added selectedUser to track the currently selected user  
   },
   reducers:{
     adduser: (state, action) => {
@@ -14,7 +14,7 @@ const userSlice = createSlice({
         state.user.length = 0; // Clear the user array
     },
     addSelectedUser: (state, action) => {
-      state.selectedUser.push(action.payload); // Set the currently selected user
+      state.selectedUser = action.payload; // Set the currently selected user
     },
   }
 });
