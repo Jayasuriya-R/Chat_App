@@ -24,7 +24,7 @@ const ChatMain = () => {
   const [msg, setMsg] = useState("");
   const endRef = useRef(null);
   const [text, setText] = useState("");
-  const showAddUser = useSelector((store) => store.addUserToogle.addUserToogle);
+  
   const msgID = useSelector((store) => store.CurrentUser.selectedUser);
   const user = useSelector((store) => store.CurrentUser.user[0]);
 
@@ -98,7 +98,7 @@ const ChatMain = () => {
           showAddUser ? "opacity-30" : ""
         }`}
       >
-        {" "}
+        
         {/* ✅ Changed from h-screen to h-full */}
         {/* Chat Header */}
         <div className="p-3 border-b border-white/15">
@@ -221,11 +221,7 @@ const ChatMain = () => {
           </div>
         </div>
       </div>
-      {showAddUser && (
-        <div className=" absolute bottom-0 left-0 top-0 right-0 w-fit h-fit m-auto text-white rounded-lg shadow-lg">
-          <AddUser />
-        </div>
-      )}
+      
     </>
   );
 };
