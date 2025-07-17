@@ -27,6 +27,7 @@ const ChatMain = () => {
   
   const msgID = useSelector((store) => store.CurrentUser.selectedUser);
   const user = useSelector((store) => store.CurrentUser.user[0]);
+   const showAddUser = useSelector((store) => store.addUserToogle.addUserToogle);
 
   useEffect(() => {
     // Scroll to the bottom when the component mounts or updates
@@ -67,6 +68,7 @@ const ChatMain = () => {
 
         if (userChatsSnapshot.exists()) {
           const userChatData = userChatsSnapshot.data();
+          console.log("updated chat:",userChatData)
           const chatIndex = userChatData.chats.findIndex(
             (chat) => chat.chatId === msgID.chatId
           );

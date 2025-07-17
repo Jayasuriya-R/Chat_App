@@ -5,7 +5,7 @@ import minus from "../assets/minus.png";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddUserToogle } from "../utils/addUserToogleSlice";
-
+import { UnSeenChat } from "./Chat";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../Firebase/Firebase"; // Adjust the import path as necessary
 import { getDoc } from "firebase/firestore"; // Import getDoc to fetch user details
@@ -97,11 +97,25 @@ const ChatList = () => {
           </div>
         ) : (
           chats?.map((x, index) => (
-            <Chat
+            x.isSeen === true ?
+            <><Chat
               key={index}
               name={x.user.username}
               id = {x}
+              msg={x.lastMessage}
+             
             />
+            <hr className='border-white/15 my-1' />
+            </> : 
+            <>
+            <UnSeenChat
+             key={index}
+              name={x.user.username}
+              id = {x}
+              msg={x.lastMessage}
+             />
+             <hr className='border-white/15 my-1' />
+</>
           ))
         )}
       </div>
