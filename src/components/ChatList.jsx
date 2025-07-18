@@ -36,7 +36,7 @@ const ChatList = () => {
       const chatData = await Promise.all(promises);
       const sorted = chatData.sort((a, b) => b.updatedAt - a.updatedAt);
       setChats(sorted); // send to state
-      console.log("Chats updated:", sorted);
+      // console.log("Chats updated:", sorted);
     });
 
     return () => unsub();
