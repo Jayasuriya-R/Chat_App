@@ -6,10 +6,9 @@ import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddUserToogle } from "../utils/addUserToogleSlice";
 import { UnSeenChat } from "./Chat";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase/Firebase"; // Adjust the import path as necessary
 import { getDoc } from "firebase/firestore"; // Import getDoc to fetch user details
-import { addSelectedUser } from "../utils/userSlice";
 import { ThreeDot } from "react-loading-indicators";
 
 const ChatList = () => {
@@ -43,6 +42,26 @@ const ChatList = () => {
   }, [user[0]?.uid]);
 
   // console.log("Chats:", user);
+  const handleSelect = async (chat) => {
+    const updatedChats = chats.map((item) => {
+      if (item.chatId === chat.chatId) {
+        return { ...item, isSeen: true };
+      }
+      return item;
+    });
+
+    const userChatsRef = doc(db, "userChats", user[0].uid);
+
+    try {
+      await updateDoc(userChatsRef, {
+        chats: updatedChats,
+      });
+
+      dispatch(addSelectedUser(chat)); // update Redux if needed
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="py-4 px-2 w-full">
@@ -97,25 +116,29 @@ const ChatList = () => {
           </div>
         ) : (
           chats?.map((x, index) => (
-            x.isSeen === true ?
-            <><Chat
-              key={index}
-              name={x.user.username}
-              id = {x}
-              msg={x.lastMessage}
-             
-            />
-            <hr className='border-white/15 my-1' />
-            </> : 
-            <>
-            <UnSeenChat
-             key={index}
-              name={x.user.username}
-              id = {x}
-              msg={x.lastMessage}
-             />
-             <hr className='border-white/15 my-1' />
-</>
+            <React.Fragment key={index}>
+              {x.isSeen ? (
+                <>
+                  <Chat
+                    name={x.user.username}
+                    id={x}
+                    msg={x.lastMessage}
+                    seen={true}
+                  />
+                  <hr className="border-white/15 my-1" />
+                </>
+              ) : (
+                <>
+                  <UnSeenChat
+                    name={x.user.username}
+                    id={x}
+                    msg={x.lastMessage}
+                    handleSelect={handleSelect}
+                  />
+                  <hr className="border-white/15 my-1" />
+                </>
+              )}
+            </React.Fragment>
           ))
         )}
       </div>

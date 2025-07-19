@@ -24,10 +24,10 @@ const ChatMain = () => {
   const [msg, setMsg] = useState("");
   const endRef = useRef(null);
   const [text, setText] = useState("");
-  
+
   const msgID = useSelector((store) => store.CurrentUser.selectedUser);
   const user = useSelector((store) => store.CurrentUser.user[0]);
-   const showAddUser = useSelector((store) => store.addUserToogle.addUserToogle);
+  const showAddUser = useSelector((store) => store.addUserToogle.addUserToogle);
 
   useEffect(() => {
     // Scroll to the bottom when the component mounts or updates
@@ -35,7 +35,7 @@ const ChatMain = () => {
       endRef.current?.scrollIntoView({ behavior: "smooth" });
     };
     scrollToBottom();
-  }, []);
+  }, [msg]);
 
   useEffect(() => {
     const unSub = onSnapshot(doc(db, "chats", msgID.chatId), (res) => {
@@ -68,7 +68,7 @@ const ChatMain = () => {
 
         if (userChatsSnapshot.exists()) {
           const userChatData = userChatsSnapshot.data();
-          console.log("updated chat:",userChatData)
+          console.log("updated chat:", userChatData);
           const chatIndex = userChatData.chats.findIndex(
             (chat) => chat.chatId === msgID.chatId
           );
@@ -100,7 +100,6 @@ const ChatMain = () => {
           showAddUser ? "opacity-30" : ""
         }`}
       >
-        
         {/* ✅ Changed from h-screen to h-full */}
         {/* Chat Header */}
         <div className="p-3 border-b border-white/15">
@@ -134,52 +133,47 @@ const ChatMain = () => {
           }}
         >
           {/* Incoming Message */}
-          <div className="flex items-start gap-2 max-w-[70%] mb-2">
-            <img src={avatar} alt="Avatar" className="w-10 h-10 rounded-full" />
-            <div>
-              <div className="bg-gray-800 text-white text-left p-2 rounded-lg w-fit">
-                <p>Hello! How are you?</p>
-              </div>
-              <div className="flex items-start mt-1">
-                <span className="text-xs text-gray-400 block">10:30 AM</span>
-              </div>
-            </div>
-          </div>
+          {msg?.messages?.map((x, index) => {
+            const isCurrentUser = x.senderId === user.uid;
 
-          {/* Outgoing Messages */}
-          {msg?.messages?.map((x, index) => (
-            <div
-              key={index}
-              className="flex justify-end max-w-[70%] ml-auto mb-2"
-            >
-              <div>
-                <div className="bg-blue-500 text-white p-2 rounded-lg w-fit">
-                  <p>{x.text}</p>
-                </div>
-                <div className="mt-1 flex justify-end">
-                  <span className="text-xs text-gray-400 block">
-                    {x.createdAt
-                      ?.toDate()
-                      .toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
+            return (
+              <div
+                key={index}
+                ref={index === msg.messages.length - 1 ? endRef : null}
+                className={`flex ${
+                  isCurrentUser ? "justify-end" : "justify-start"
+                } mb-2`}
+              >
+                {!isCurrentUser && (
+                  <img
+                    src={msgID.user.avatar || avatar}
+                    alt="Avatar"
+                    className="w-8 h-8 rounded-full mr-2 self-end"
+                  />
+                )}
+
+                <div className="flex flex-col max-w-[70%]">
+                  <div
+                    className={`p-2 rounded-lg text-white ${
+                      isCurrentUser ? "bg-blue-500 ml-auto" : "bg-gray-800"
+                    }`}
+                  >
+                    <p>{x.text}</p>
+                  </div>
+                  <span
+                    className={`text-xs text-gray-400 mt-1 ${
+                      isCurrentUser ? "text-right" : "text-left"
+                    }`}
+                  >
+                    {x.createdAt?.toDate().toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
                   </span>
                 </div>
               </div>
-            </div>
-          ))}
-          <div ref={endRef} className="flex items-start gap-2 max-w-[70%] mb-2">
-            <img src={avatar} alt="Avatar" className="w-10 h-10 rounded-full" />
-            <div>
-              <div className="bg-gray-800 text-white text-left p-2 rounded-lg w-fit">
-                <p>Hello! How are you?</p>
-              </div>
-              <div className="flex items-start mt-1">
-                <span className="text-xs text-gray-400 block">10:30 AM</span>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
         {/* Chat Input */}
         <div className="flex items-center p-3 gap-4 border-t border-white/15">
@@ -194,6 +188,11 @@ const ChatMain = () => {
               placeholder="Type a message..."
               value={text}
               onChange={(e) => setText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSend(); // your function
+                }
+              }}
               className="w-full p-2 py-3 bg-gray-800 text-white rounded-lg outline-none placeholder:text-[#a5a5a5]"
             />
           </div>
@@ -217,13 +216,13 @@ const ChatMain = () => {
             <button
               className="bg-blue-400 text-white py-1 px-3 rounded-sm text-sm cursor-pointer hover:bg-blue-500"
               onClick={handleSend}
+              
             >
               Send
             </button>
           </div>
         </div>
       </div>
-      
     </>
   );
 };
