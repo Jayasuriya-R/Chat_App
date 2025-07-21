@@ -8,7 +8,6 @@ import mic from "../assets/mic.png";
 import img from "../assets/img.png";
 import emoji from "../assets/emoji.png";
 import EmojiPicker from "emoji-picker-react";
-import AddUser from "./AddUser";
 import { useSelector } from "react-redux";
 import {
   arrayUnion,
@@ -148,7 +147,7 @@ const ChatMain = () => {
                   <img
                     src={msgID.user.avatar || avatar}
                     alt="Avatar"
-                    className="w-8 h-8 rounded-full mr-2 self-end"
+                    className="w-8 h-8 rounded-full mr-2 mb-5 self-end"
                   />
                 )}
 
