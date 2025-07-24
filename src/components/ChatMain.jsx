@@ -17,6 +17,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
+import Tooltip from "./Tooltip";
 
 const ChatMain = () => {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
@@ -99,7 +100,7 @@ const ChatMain = () => {
           showAddUser ? "opacity-30" : ""
         }`}
       >
-        {/* ✅ Changed from h-screen to h-full */}
+
         {/* Chat Header */}
         <div className="p-3 border-b border-white/15">
           <div className="flex items-center justify-between">
@@ -117,9 +118,18 @@ const ChatMain = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <div className="relative group">
               <img src={phone} alt="Phone" className="w-5 h-5 cursor-pointer" />
+              <span><Tooltip desc="Phone"/></span>
+              </div>
+              <div className="relative group">
               <img src={video} alt="Video" className="w-5 h-5 cursor-pointer" />
+              <span><Tooltip desc="Video"/></span>
+              </div>
+              <div className="relative group">
               <img src={info} alt="Info" className="w-5 h-5 cursor-pointer" />
+              <span><Tooltip desc="Info"/></span>
+              </div>
             </div>
           </div>
         </div>
