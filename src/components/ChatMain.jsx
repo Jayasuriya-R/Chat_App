@@ -19,7 +19,7 @@ import {
 import { db } from "../Firebase/Firebase";
 import Tooltip from "./Tooltip";
 
-const ChatMain = () => {
+const ChatMain = ({BlockedUser}) => {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const [msg, setMsg] = useState("");
   const endRef = useRef(null);
@@ -98,7 +98,7 @@ const ChatMain = () => {
       <div
         className={`flex flex-col h-full pr-2 ${
           showAddUser.addUserToogle || showAddUser.blockUserToggle  ? "opacity-30" : ""
-        }`}
+        } ${BlockedUser.includes(msgID?.user.uid )? "pointer-events-none select-none opacity-70" :""}`}
       >
 
         {/* Chat Header */}
@@ -113,7 +113,7 @@ const ChatMain = () => {
               <div className="text-left">
                 <h1 className="text-sm font-bold">{msgID.user.username}</h1>
                 <span className="text-xs text-[#a5a5a5] font-normal">
-                  Busy at work
+                 {BlockedUser?.includes(msgID?.user.uid ) ? "Blocked": "Busy at work"}
                 </span>
               </div>
             </div>

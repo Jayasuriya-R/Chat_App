@@ -8,7 +8,7 @@ import { addSelectedUser, removeuser } from "../utils/userSlice";
 import { useSelector } from "react-redux";
 import { setAddUserToogle, setAddUserToogleFalse, setBlockUserToogleTrue } from "../utils/addUserToogleSlice";
 
-const Details = () => {
+const Details = ({BlockedUser}) => {
   const [openSetting, setOpenSetting] = useState(null);
   const dispatch = useDispatch();
   const details = useSelector((store) => store.CurrentUser.selectedUser);
@@ -22,7 +22,7 @@ const Details = () => {
     setOpenSetting((prev) => (prev === id ? null : id));
   };
   return (
-    <div className="pb-2 px-1">
+    <div className={`pb-2 px-1 ${BlockedUser.includes(details?.user.uid )? "pointer-events-none select-none opacity-70" :""}`}>
       <div className="flex flex-col items-center justify-center">
         <img
           src={details.user.avatar}
@@ -30,7 +30,7 @@ const Details = () => {
           className="w-10 h-10 rounded-full mt-3"
         />
         <h1 className="text-base font-medium">{details.user.username}</h1>
-        <p className="text-[#a5a5a5] text-sm">Busy at work !</p>
+        <p className="text-[#a5a5a5] text-sm"> {BlockedUser?.includes(details?.user.uid ) ? "Blocked": "Busy at work"}</p>
       </div>
 
       <hr className="border-white/15 my-2" />
