@@ -27,7 +27,7 @@ const ChatMain = () => {
 
   const msgID = useSelector((store) => store.CurrentUser.selectedUser);
   const user = useSelector((store) => store.CurrentUser.user[0]);
-  const showAddUser = useSelector((store) => store.addUserToogle.addUserToogle);
+  const showAddUser = useSelector((store) => store.addUserToogle);
 
   useEffect(() => {
     // Scroll to the bottom when the component mounts or updates
@@ -97,7 +97,7 @@ const ChatMain = () => {
     <>
       <div
         className={`flex flex-col h-full pr-2 ${
-          showAddUser ? "opacity-30" : ""
+          showAddUser.addUserToogle || showAddUser.blockUserToggle  ? "opacity-30" : ""
         }`}
       >
 

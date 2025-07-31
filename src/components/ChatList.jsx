@@ -4,7 +4,7 @@ import plus from "../assets/plus.png";
 import minus from "../assets/minus.png";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
-import { setAddUserToogle } from "../utils/addUserToogleSlice";
+import { setAddUserToogle , setBlockUserToogleFalse} from "../utils/addUserToogleSlice";
 import { UnSeenChat } from "./Chat";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase/Firebase"; // Adjust the import path as necessary
@@ -86,6 +86,7 @@ const ChatList = () => {
         <div
           onClick={() => {
             dispatch(setAddUserToogle());
+            dispatch(setBlockUserToogleFalse());
           }}
           className="bg-gray-800 w-12 h-10 rounded-lg flex justify-center items-center cursor-pointer"
         >
