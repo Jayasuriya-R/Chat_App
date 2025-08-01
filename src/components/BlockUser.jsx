@@ -12,11 +12,11 @@ const BlockUser = ({blockedUser}) => {
         <h1 className="text-lg font-semibold">Block User</h1>
         <p className="text-sm text-gray-500">Are you sure you want to block this user?</p>
         <div className='flex justify-center items-center gap-2 mt-2'>
-        <button className='py-1 px-2 rounded-lg bg-red-500 text-white'onClick={()=> {
+        <button className='py-1 px-2 rounded-lg bg-red-500 cursor-pointer font-medium hover:bg-red-600 text-white'onClick={()=> {
             dispatch(addToBlockList(blockedUser?.user.uid));
             dispatch(setBlockUserToogleFalse());
         }}>Yes</button>
-        <button className='py-1 px-2 rounded-lg bg-red-500 text-white'onClick={() => dispatch(setBlockUserToogleFalse())}>No</button>
+        <button className='py-1 px-2 rounded-lg bg-red-500 cursor-pointer font-medium hover:bg-red-600 text-white'onClick={() => dispatch(setBlockUserToogleFalse())}>No</button>
         </div>
       </div>
     </div>

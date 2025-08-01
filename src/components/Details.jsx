@@ -82,7 +82,7 @@ const Details = ({BlockedUser}) => {
 
         <div className="flex flex-col px-3 gap-2 mt-4">
           <button
-            className="bg-red-500 w-full px-2 py-1 text-xs rounded-sm text-white hover:bg-red-600"
+            className="bg-red-500 font-medium w-full px-2 py-1 text-xs rounded-sm text-white hover:bg-red-600"
             onClick={() => {
               dispatch(setBlockUserToogleTrue());
               dispatch(setAddUserToogleFalse())
@@ -91,7 +91,7 @@ const Details = ({BlockedUser}) => {
             Block User
           </button>
           <button
-            className="bg-blue-500 text-white w-full text-xs px-2 py-1 rounded-sm hover:bg-blue-600"
+            className="bg-blue-500 font-medium text-white w-full text-xs px-2 py-1 rounded-sm hover:bg-blue-600"
             onClick={() => {
               dispatch(removeuser());
               dispatch(addSelectedUser(null));

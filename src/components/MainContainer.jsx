@@ -2,7 +2,7 @@ import React, { use } from "react";
 import LeftPannel from "./LeftPannel";
 import ChatMain from "./ChatMain";
 import Details from "./Details";
-import { useSelector ,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import AddUser from "./AddUser";
 import BlockUser from "./BlockUser";
 import { removeFromBlockList } from "../utils/userSlice";
@@ -10,8 +10,12 @@ import { removeFromBlockList } from "../utils/userSlice";
 const MainContainer = () => {
   const dispatch = useDispatch();
   const msgId = useSelector((store) => store.CurrentUser.selectedUser);
-  const showAddUser = useSelector((store) => store.addUserToogle); 
-  const  BlockedUser = useSelector((store) => store.CurrentUser.blockedUsers);
+  const showAddUser = useSelector((store) => store.addUserToogle);
+  const BlockedUser = useSelector((store) => store.CurrentUser.blockedUsers);
+  // console.log("BlockedUser array:", BlockedUser);
+  // console.log("msgId?.user?.uid:", msgId?.user?.uid);
+  // console.log("BlockedUser type:", typeof BlockedUser);
+  // console.log("Is array?", Array.isArray(BlockedUser));
   // console.log(BlockedUser);
   //pointer-events-none select-none opacity-70
   return (
@@ -25,33 +29,41 @@ const MainContainer = () => {
       </div>
 
       {/* Chat Main */}
-     <div className={`lg:col-span-6 h-full border-b lg:border-b-0 lg:border-r border-white/15 overflow-hidden`}>
-  {BlockedUser.includes(msgId?.user?.uid) ? (
-    <div className="absolute bottom-0 left-0 top-0 bg-[#2c3b56] py-2 right-0 w-fit h-fit m-auto text-center text-white rounded-lg shadow-lg">
-      <h1 className="text-lg font-semibold text-center p-4">Remove from block list to chat</h1>
-      <button className='py-1 px-2 rounded-lg bg-red-500 text-white cursor-pointer' onClick={()=> dispatch(removeFromBlockList({ uid: msgId?.user?.uid }))}>Unblock</button>
-    </div>
-  ) : (
-    <>
-      {msgId && <ChatMain BlockedUser={BlockedUser} />}
-      {showAddUser.addUserToogle && (
-        <div className="absolute bottom-0 left-0 top-0 right-0 w-fit h-fit m-auto text-white rounded-lg shadow-lg">
-          <AddUser />
-        </div>
-      )}
-    </>
-  )}
-</div>
-
+      <div
+        className={`lg:col-span-6 h-full border-b lg:border-b-0 lg:border-r border-white/15 overflow-hidden`}
+      >
+        {BlockedUser.includes(msgId?.user?.uid) ? (
+          <div className="absolute bottom-0 left-0 top-0 bg-[#111928] py-2 right-0 w-fit h-fit m-auto text-center border border-gray-50 rounded-lg shadow-lg">
+            <h1 className="text-lg font-semibold text-center p-4 text-gray-500">
+              Remove from block list to chat
+            </h1>
+            <button
+              className="py-1 px-2 rounded-lg bg-red-500 hover:bg-red-600 font-medium text-white cursor-pointer"
+             onClick={() => dispatch(removeFromBlockList({ uid: msgId?.user?.uid }))}
+            >
+              Unblock
+            </button>
+          </div>
+        ) : (
+          <>
+            {msgId && <ChatMain BlockedUser={BlockedUser} />}
+            {showAddUser.addUserToogle && (
+              <div className="absolute bottom-0 left-0 top-0 right-0 w-fit h-fit m-auto text-white rounded-lg shadow-lg">
+                <AddUser />
+              </div>
+            )}
+          </>
+        )}
+      </div>
 
       {/* Right Panel */}
       <div className={`lg:col-span-3 h-full overflow-hidden `}>
-        {msgId && <Details BlockedUser={BlockedUser}/>}
+        {msgId && <Details BlockedUser={BlockedUser} />}
         {showAddUser.blockUserToggle && (
-        <div className=" absolute bottom-0 left-0 top-0 right-0 w-fit h-fit m-auto text-white rounded-lg shadow-lg">
-          <BlockUser blockedUser={msgId}/>
-        </div>
-      )}
+          <div className=" absolute bottom-0 left-0 top-0 right-0 w-fit h-fit m-auto text-white rounded-lg shadow-lg">
+            <BlockUser blockedUser={msgId} />
+          </div>
+        )}
       </div>
     </div>
   );

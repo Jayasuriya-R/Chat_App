@@ -22,7 +22,7 @@ const userSlice = createSlice({
     },
     removeFromBlockList: (state, action) => {
       state.blockedUsers = state.blockedUsers.filter(
-        (user) => user.uid !== action.payload.uid
+        (uid) => uid !== action.payload.uid
       );
     },
   },
