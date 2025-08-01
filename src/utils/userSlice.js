@@ -6,6 +6,7 @@ const userSlice = createSlice({
     user: [],
     selectedUser: null, // Added selectedUser to track the currently selected user
     blockedUsers: [],
+    chatList:null,
   },
   reducers: {
     adduser: (state, action) => {
@@ -25,13 +26,16 @@ const userSlice = createSlice({
         (uid) => uid !== action.payload.uid
       );
     },
+    addChatList: (state, action) => {
+      state.chatList = action.payload; // Set the chat list
   },
-});
+}})
 export const {
   adduser,
   removeuser,
   addSelectedUser,
   addToBlockList,
   removeFromBlockList,
+  addChatList
 } = userSlice.actions;
 export default userSlice.reducer;

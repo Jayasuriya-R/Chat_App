@@ -4,17 +4,22 @@ import plus from "../assets/plus.png";
 import minus from "../assets/minus.png";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
-import { setAddUserToogle , setBlockUserToogleFalse} from "../utils/addUserToogleSlice";
+import {
+  setAddUserToogle,
+  setBlockUserToogleFalse,
+} from "../utils/addUserToogleSlice";
 import { UnSeenChat } from "./Chat";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase/Firebase"; // Adjust the import path as necessary
 import { getDoc } from "firebase/firestore"; // Import getDoc to fetch user details
 import { ThreeDot } from "react-loading-indicators";
+import { addChatList } from "../utils/userSlice";
 
 const ChatList = () => {
   const dispatch = useDispatch();
   const swapIcon = useSelector((store) => store.addUserToogle.addUserToogle);
   const user = useSelector((store) => store.CurrentUser.user);
+  const chatList = useSelector((store) => store.CurrentUser.chatList);
   const [chats, setChats] = useState([]);
 
   // ✅ This ensures a stable array length
@@ -34,7 +39,9 @@ const ChatList = () => {
 
       const chatData = await Promise.all(promises);
       const sorted = chatData.sort((a, b) => b.updatedAt - a.updatedAt);
-      setChats(sorted); // send to state
+      // send to state
+      dispatch(addChatList(sorted));
+      setChats(sorted); // update Redux store
       // console.log("Chats updated:", sorted);
     });
 
@@ -79,6 +86,20 @@ const ChatList = () => {
             type="text"
             placeholder="Search"
             className="w-full pl-10 pr-3 py-2 bg-gray-800 text-white rounded-lg focus:outline-none"
+            onChange={(e) => {
+              const searchTerm = e.target.value.toLowerCase().trim();
+
+              if (searchTerm === "") {
+                // Reset to full list when search is empty
+                setChats(chatList);
+              } else {
+                // Filter and set results (even if empty)
+                const filteredChats = chatList.filter((chat) =>
+                  chat.user.username.toLowerCase().includes(searchTerm)
+                );
+                setChats(filteredChats);
+              }
+            }}
           />
         </div>
 
