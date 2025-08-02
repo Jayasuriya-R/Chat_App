@@ -6,6 +6,7 @@ import download from "../assets/download.png";
 import { useDispatch } from "react-redux";
 import { addSelectedUser, removeuser } from "../utils/userSlice";
 import { useSelector } from "react-redux";
+import avatar from "../assets/avatar.png";
 import { setAddUserToogle, setAddUserToogleFalse, setBlockUserToogleTrue } from "../utils/addUserToogleSlice";
 
 const Details = ({BlockedUser}) => {

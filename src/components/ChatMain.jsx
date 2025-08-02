@@ -106,7 +106,7 @@ const ChatMain = ({BlockedUser}) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img
-                src={msgID.user.avatar}
+                src={ avatar  || msgID.user.avatar}
                 alt="Avatar"
                 className="w-10 h-10 rounded-full"
               />
@@ -155,7 +155,7 @@ const ChatMain = ({BlockedUser}) => {
               >
                 {!isCurrentUser && (
                   <img
-                    src={msgID.user.avatar || avatar}
+                    src={avatar || msgID.user.avatar }
                     alt="Avatar"
                     className="w-8 h-8 rounded-full mr-2 mb-5 self-end"
                   />
