@@ -25,13 +25,13 @@ const ChatList = () => {
   // ✅ This ensures a stable array length
 
   useEffect(() => {
-    if (!user[0].uid) return; // Guard clause
+    if (!user[0].uid) return; 
 
     const unsub = onSnapshot(doc(db, "userChats", user[0].uid), async (res) => {
       const items = res.data()?.chats || [];
 
       const promises = items.map(async (item) => {
-        const userDocRef = doc(db, "users", item.receiverId); // or item.users.uid if that's your field
+        const userDocRef = doc(db, "users", item.receiverId); 
         const userDocSnap = await getDoc(userDocRef);
         const user = userDocSnap.exists() ? userDocSnap.data() : null;
         return { ...item, user };
@@ -39,16 +39,16 @@ const ChatList = () => {
 
       const chatData = await Promise.all(promises);
       const sorted = chatData.sort((a, b) => b.updatedAt - a.updatedAt);
-      // send to state
+     
       dispatch(addChatList(sorted));
       setChats(sorted); // update Redux store
-      // console.log("Chats updated:", sorted);
+     
     });
 
     return () => unsub();
   }, [user[0]?.uid]);
 
-  // console.log("Chats:", user);
+
   const handleSelect = async (chat) => {
     const updatedChats = chats.map((item) => {
       if (item.chatId === chat.chatId) {
@@ -125,7 +125,7 @@ const ChatList = () => {
           scrollbarWidth: "none" /* Firefox */,
         }}
       >
-        {console.log("Chats:", chats)}
+        {/* {console.log("Chats:", chats)} */}
         {chats.length == 0 ? (
           <div className="flex justify-center items-center h-full">
             <ThreeDot

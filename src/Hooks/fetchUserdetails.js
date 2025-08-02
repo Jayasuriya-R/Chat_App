@@ -9,7 +9,7 @@ const fetchUserDetails = async (userId,dispatch) => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
+    // console.log("Document data:", docSnap.data());
     dispatch(adduser(docSnap.data()))
   } else {
     // docSnap.data() will be undefined in this case

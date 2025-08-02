@@ -12,12 +12,7 @@ const MainContainer = () => {
   const msgId = useSelector((store) => store.CurrentUser.selectedUser);
   const showAddUser = useSelector((store) => store.addUserToogle);
   const BlockedUser = useSelector((store) => store.CurrentUser.blockedUsers);
-  // console.log("BlockedUser array:", BlockedUser);
-  // console.log("msgId?.user?.uid:", msgId?.user?.uid);
-  // console.log("BlockedUser type:", typeof BlockedUser);
-  // console.log("Is array?", Array.isArray(BlockedUser));
-  // console.log(BlockedUser);
-  //pointer-events-none select-none opacity-70
+  
   return (
     <div
       className="w-full h-full grid grid-cols-1 lg:grid-cols-12 gap-4 rounded-lg text-white backdrop-blur-[19px] backdrop-saturate-[180%] border border-white/15"

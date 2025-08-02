@@ -68,7 +68,7 @@ const ChatMain = ({BlockedUser}) => {
 
         if (userChatsSnapshot.exists()) {
           const userChatData = userChatsSnapshot.data();
-          console.log("updated chat:", userChatData);
+          // console.log("updated chat:", userChatData);
           const chatIndex = userChatData.chats.findIndex(
             (chat) => chat.chatId === msgID.chatId
           );
