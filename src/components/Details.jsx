@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import Avatar from "../assets/avatar.png";
 import upArrow from "../assets/arrowUp.png";
 import downArrow from "../assets/arrowDown.png";
 import download from "../assets/download.png";
 import { useDispatch } from "react-redux";
 import { addSelectedUser, removeuser } from "../utils/userSlice";
 import { useSelector } from "react-redux";
-import avatar from "../assets/avatar.png";
-import { setAddUserToogle, setAddUserToogleFalse, setBlockUserToogleTrue } from "../utils/addUserToogleSlice";
+import { setAddUserToogleFalse, setBlockUserToogleTrue } from "../utils/addUserToogleSlice";
 
 const Details = ({BlockedUser}) => {
   const [openSetting, setOpenSetting] = useState(null);
