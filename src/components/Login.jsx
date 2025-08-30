@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { FaUser, FaEnvelope, FaLock, FaImage } from "react-icons/fa";
 import { doc, setDoc } from "firebase/firestore";
 import { adduser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
@@ -24,7 +25,7 @@ const Login = () => {
     file: null,
     url: "",
   });
-   
+
   const handleAvatar = (e) => {
     setAvatar({
       file: e.target.files[0],
@@ -42,7 +43,7 @@ const Login = () => {
       setLoading(true);
 
       const res = await createUserWithEmailAndPassword(auth, email, password);
-     
+
       await setDoc(doc(db, "users", res.user.uid), {
         username: userName,
         email,
@@ -56,7 +57,7 @@ const Login = () => {
       });
 
       toast.success("Signed Up Successfully");
-      await fetchUserDetails(res.user.uid,dispatch);
+      await fetchUserDetails(res.user.uid, dispatch);
       // dispatch(
       //   adduser({
       //     userId : res.user.uid,
@@ -82,7 +83,7 @@ const Login = () => {
       setLoading(true);
 
       const res = await signInWithEmailAndPassword(auth, email, password);
-      await fetchUserDetails(res.user.uid,dispatch);
+      await fetchUserDetails(res.user.uid, dispatch);
       toast.success("Logged In Successfully");
 
       // dispatch(
@@ -101,93 +102,119 @@ const Login = () => {
   };
 
   return (
-    <div
-      className="w-full h-full p-3 rounded-lg text-white backdrop-blur-[19px] backdrop-saturate-[180%] border border-white/15"
-      style={{ backgroundColor: "rgba(17, 25, 40, 0.75)" }}
-    >
-      {loading ? (
-        <div className="flex h-full justify-center items-center">
-          <OrbitProgress color="#7d97d6" size="medium" />
+    <div className="flex items-center justify-center md:w-4/12 min-h-screen px-4">
+      <div
+        className="relative w-full  p-3 rounded-lg text-white backdrop-blur-[19px] backdrop-saturate-[180%] border border-transparent"
+        style={{ backgroundColor: "rgba(17, 25, 40, 0.75)" }}
+      >
+        {/* Animated Gradient Border */}
+        <div className="absolute inset-0 rounded-lg p-[2px] bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-gradient">
+          <div
+            className="w-full h-full rounded-lg"
+            style={{ backgroundColor: "rgba(17, 25, 40, 0.75)" }}
+          ></div>
         </div>
-      ) : (
-        <div className="flex flex-col space-y-2 h-full items-center justify-center">
-          <h1 className="text-3xl font-bold">{!signUp ? "Log In" : "Sign Up"}</h1>
-          <form
-            className="w-5/12"
-            onSubmit={(e) => {
-              e.preventDefault();
-              signUp ? handleSignin() : handleLogin();
-            }}
-          >
-            {/* Avatar Upload */}
-            <div
-              className={`flex items-center justify-end mb-1 transition-all duration-300 ${
-                signUp ? "opacity-100 block" : "opacity-0 hidden"
-              }`}
-            >
-              <img
-                src={avatar.url || "https://picsum.photos/200/300"}
-                className="w-5 h-5 rounded-full mr-3"
-                alt="Avatar"
-              />
-              <label htmlFor="file" className="cursor-pointer text-[#a5a5a5]">
-                Upload an image
-              </label>
-              <input
-                type="file"
-                id="file"
-                className="hidden"
-                onChange={handleAvatar}
-              />
+
+        <div className="relative z-10">
+          {loading ? (
+            <div className="flex h-full justify-center items-center">
+              <OrbitProgress color="#7d97d6" size="medium" />
             </div>
+          ) : (
+            <div className="flex flex-col space-y-2 h-full items-center justify-center">
+              <h1 className="text-2xl sm:text-3xl font-bold">
+                {!signUp ? "Log In" : "Sign Up"}
+              </h1>
+              <form
+                className="w-full px-2 sm:px-6"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  signUp ? handleSignin() : handleLogin();
+                }}
+              >
+                {/* Avatar Upload */}
+                <div
+                  className={`flex items-center justify-end mb-3 transition-all duration-300 ${
+                    signUp ? "opacity-100 block" : "opacity-0 hidden"
+                  }`}
+                >
+                  <img
+                    src={avatar.url || "https://picsum.photos/200/300"}
+                    className="w-10 h-10 rounded-full mr-3 sm:w-12 sm:h-12"
+                    alt="Avatar"
+                  />
+                  <label
+                    htmlFor="file"
+                    className="cursor-pointer text-[#a5a5a5] text-sm sm:text-base flex items-center gap-2"
+                  >
+                    <FaImage /> Upload
+                  </label>
+                  <input
+                    type="file"
+                    id="file"
+                    className="hidden"
+                    onChange={handleAvatar}
+                  />
+                </div>
 
-            {/* Username Input */}
-            <input
-              type="text"
-              placeholder="Username"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              className={`w-full p-2 my-4 rounded bg-gray-800 border border-gray-700 text-white transition-all duration-300 ${
-                signUp ? "opacity-100 visible" : "opacity-0 invisible h-0"
-              }`}
-            />
+                {/* Username Input */}
+                {signUp && (
+                  <div className="relative mb-3">
+                    <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Username"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      className="w-full pl-10 p-2 rounded bg-gray-800 border border-gray-700 text-white text-sm sm:text-base"
+                    />
+                  </div>
+                )}
 
-            {/* Email */}
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 mb-4 rounded bg-gray-800 border border-gray-700 text-white"
-            />
+                {/* Email */}
+                <div className="relative mb-3">
+                  <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full pl-10 p-2 rounded bg-gray-800 border border-gray-700 text-white text-sm sm:text-base"
+                  />
+                </div>
 
-            {/* Password */}
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 mb-4 rounded bg-gray-800 border border-gray-700 text-white"
-            />
+                {/* Password */}
+                <div className="relative mb-3">
+                  <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full pl-10 p-2 rounded bg-gray-800 border border-gray-700 text-white text-sm sm:text-base"
+                  />
+                </div>
 
-            <button
-              type="submit"
-              className="w-full p-2 mb-4 bg-blue-600 font-medium text-white rounded hover:bg-blue-700 transition-colors"
-            >
-              {!signUp ? "Log In" : "Sign Up"}
-            </button>
+                <button
+                  type="submit"
+                  className="w-full p-2 mb-3 bg-blue-600 font-medium text-white rounded hover:bg-blue-700 transition-colors"
+                >
+                  {!signUp ? "Log In" : "Sign Up"}
+                </button>
 
-            <p
-              className="cursor-pointer text-white hover:underline text-sm"
-              onClick={() => setSignUp(!signUp)}
-            >
-              {!signUp
-                ? "New to the chat? Sign Up Now"
-                : "Already registered? Sign In"}
-            </p>
-          </form>
+                <p
+                  className="cursor-pointer text-white hover:underline text-xs sm:text-sm text-center"
+                  onClick={() => setSignUp(!signUp)}
+                >
+                  {!signUp
+                    ? "New to the chat? Sign Up Now"
+                    : "Already registered? Sign In"}
+                </p>
+              </form>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
