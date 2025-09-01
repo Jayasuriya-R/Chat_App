@@ -5,12 +5,12 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { FaUser, FaEnvelope, FaLock, FaImage } from "react-icons/fa";
 import { doc, setDoc } from "firebase/firestore";
 import { adduser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 import { OrbitProgress } from "react-loading-indicators";
 import fetchUserDetails from "../Hooks/fetchUserdetails"; // Assuming this is a custom hook to fetch user details
+import { FaEnvelope, FaImage, FaLock, FaUser } from "react-icons/fa";
 
 const Login = () => {
   const [signUp, setSignUp] = useState(false);
@@ -102,9 +102,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center md:w-4/12 min-h-screen px-4">
+    <div className="flex items-center justify-center w-full min-h-screen px-4">
       <div
-        className="relative w-full  p-3 rounded-lg text-white backdrop-blur-[19px] backdrop-saturate-[180%] border border-transparent"
+        className="relative w-full max-w-md p-3 rounded-lg text-white backdrop-blur-[19px] backdrop-saturate-[180%] border border-transparent"
         style={{ backgroundColor: "rgba(17, 25, 40, 0.75)" }}
       >
         {/* Animated Gradient Border */}

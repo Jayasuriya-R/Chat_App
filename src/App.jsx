@@ -11,8 +11,8 @@ function App() {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen px-4 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e]">
-        <div className="w-12/12 h-12/12 flex items-center justify-center">
+      <div className="flex items-center justify-center  px-4 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e]">
+        <div className="flex items-center justify-center  py-4">
         
           {userLoggedIn.length > 0 ? <MainContainer /> : <Login />}
         </div>

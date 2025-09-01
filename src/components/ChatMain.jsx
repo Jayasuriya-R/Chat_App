@@ -96,7 +96,7 @@ const ChatMain = ({BlockedUser}) => {
   return (
     <>
       <div
-        className={`flex flex-col h-full pr-2 ${
+        className={`flex flex-col  max-h-screen h-[95vh] pr-2 ${
           showAddUser.addUserToogle || showAddUser.blockUserToggle  ? "opacity-30" : ""
         } ${BlockedUser.includes(msgID?.user.uid )? "pointer-events-none select-none opacity-70" :""}`}
       >
@@ -131,6 +131,7 @@ const ChatMain = ({BlockedUser}) => {
               <span><Tooltip desc="Info"/></span>
               </div>
             </div>
+            
           </div>
         </div>
         {/* Chat Messages (Scrollable) */}
