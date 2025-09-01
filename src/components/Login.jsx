@@ -140,7 +140,7 @@ const Login = () => {
                 >
                   <img
                     src={avatar.url || "https://picsum.photos/200/300"}
-                    className="w-10 h-10 rounded-full mr-3 sm:w-12 sm:h-12"
+                    className="w-8 h-8 rounded-full mr-3 sm:w-12 sm:h-12"
                     alt="Avatar"
                   />
                   <label

@@ -15,7 +15,7 @@ const MainContainer = () => {
   
   return (
     <div
-      className="w-full h-full  grid grid-cols-1 lg:grid-cols-12 gap-4 rounded-lg text-white backdrop-blur-[19px] backdrop-saturate-[180%] border border-white/15"
+      className="w-full max-h-screen h-[95vh]  grid grid-cols-1 lg:grid-cols-12 gap-4 rounded-lg text-white backdrop-blur-[19px] backdrop-saturate-[180%] border border-white/15"
       style={{ backgroundColor: "rgba(17, 25, 40, 0.75)" }}
     >
       {/* Left Panel */}
